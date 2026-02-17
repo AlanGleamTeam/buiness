@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A.W. Worthington · Careers</title>
+  <!-- Google Fonts for consistency -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ----- design system (matches main site) ----- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    :root {
+      --navy: #0b1a2d;
+      --steel: #1e2f3f;
+      --gold: #c9a24d;
+      --light: #f0f4f8;
+      --dark-text: #b6c1cd;
+      --card-bg: #122734;
+      --border-glow: rgba(201, 162, 77, 0.2);
+      --font-main: 'Inter', sans-serif;
+    }
+    body {
+      font-family: var(--font-main);
+      background-color: var(--navy);
+      color: var(--light);
+      line-height: 1.5;
+    }
+    h1, h2, h3 {
+      font-weight: 350;
+      letter-spacing: -0.02em;
+    }
+    h1 {
+      font-size: clamp(2rem, 5vw, 2.8rem);
+      color: var(--gold);
+    }
+    h2 {
+      font-size: 2rem;
+    }
+    h3 {
+      font-size: 1.8rem;
+      border-bottom: 1px solid rgba(201, 162, 77, 0.3);
+      padding-bottom: 0.5rem;
+      margin-bottom: 2rem;
+      color: var(--gold);
+    }
+    .section {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+    }
+    /* ----- header & navigation ----- */
+    header {
+      background: #0f1b28;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      border-bottom: 2px solid var(--gold);
+    }
+    header p {
+      color: var(--dark-text);
+      font-size: 1.2rem;
+      margin-top: 0.5rem;
+    }
+    nav {
+      background: #0a1522;
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid #2a3a4a;
+    }
+    nav ul {
+      display: flex;
+      justify-content: center;
+      gap: 2.5rem;
+      list-style: none;
+      flex-wrap: wrap;
+    }
+    nav a {
+      color: #e0e7ef;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 500;
+      font-size: 0.95rem;
+      padding-bottom: 0.25rem;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    nav a:hover {
+      color: var(--gold);
+      border-bottom-color: var(--gold);
+    }
+    .nav-toggle {
+      display: none;
+      font-size: 2rem;
+      color: var(--gold);
+      cursor: pointer;
+      text-align: right;
+    }
+    @media (max-width: 700px) {
+      nav ul {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        padding: 1.5rem 0 0.5rem;
+      }
+      nav ul.active {
+        display: flex;
+      }
+      .nav-toggle {
+        display: block;
+      }
+    }
+    /* ----- careers hero ----- */
+    .careers-hero {
+      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,30,40,0.8)), 
+                  url('https://images.unsplash.com/photo-1581092160562-40aa24e95d3a?w=1200') center/cover no-repeat;
+      min-height: 30vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .careers-hero h2 {
+      color: white;
+      font-size: clamp(2.2rem, 5vw, 3.2rem);
+      background: rgba(10, 18, 28, 0.7);
+      padding: 2rem 3rem;
+      border-left: 6px solid var(--gold);
+    }
+    /* ----- engineer cards (team) ----- */
+    .engineer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+    .engineer-card {
+      background: var(--card-bg);
+      border: 1px solid #2f4555;
+      padding: 2rem 1.5rem;
+      transition: transform 0.2s, border-color 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      border-left: 4px solid var(--gold);
+    }
+    .engineer-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--gold);
+    }
+    .engineer-icon {
+      width: 80px;
+      height: 80px;
+      background: #1d384b;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.2rem;
+      color: var(--gold);
+      font-size: 2rem;
+      font-weight: 300;
+      border: 2px solid var(--gold);
+    }
+    .engineer-name {
+      font-size: 1.6rem;
+      color: var(--gold);
+      margin-bottom: 0.25rem;
+      font-weight: 350;
+    }
+    .engineer-title {
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #aec9e0;
+      margin-bottom: 1rem;
+    }
+    .engineer-bio {
+      color: #cedcea;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    /* ----- job listings ----- */
+    .job-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+    .job-card {
+      background: #102433;
+      border: 1px solid #2c445a;
+      padding: 1.5rem;
+      border-left: 4px solid var(--gold);
+      transition: background 0.2s;
+    }
+    .job-card:hover {
+      background: #173042;
+    }
+    .job-card h4 {
+      color: var(--gold);
+      font-size: 1.2rem;
+      font-weight: 400;
+      margin-bottom: 0.5rem;
+    }
+    .job-card p {
+      color: #b8cfec;
+      font-size: 0.9rem;
+    }
+    .clearance-note {
+      background: #0f212f;
+      padding: 1.5rem 2rem;
+      border-left: 4px solid var(--gold);
+      margin: 2rem 0;
+      font-size: 1rem;
+    }
+    /* ----- footer ----- */
+    footer {
+      background: #071019;
+      text-align: center;
+      padding: 2.5rem;
+      color: #8c9aa8;
+      border-top: 2px solid var(--gold);
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>A.W. Worthington Naval Nuclear</h1>
+    <p>careers · join our engineering team</p>
+  </header>
+
+  <nav>
+    <div class="nav-toggle" onclick="document.getElementById('navMenu').classList.toggle('active')">&#9776;</div>
+    <ul id="navMenu">
+      <li><a href="index.html#capabilities">capabilities</a></li>
+      <li><a href="index.html#reviews">testimonials</a></li>
+      <li><a href="programs.html">defense programs</a></li>
+      <li><a href="portfolio.html">portfolio</a></li>
+      <li><a href="careers.html">careers</a></li>
+      <li><a href="index.html#contact">contact</a></li>
+    </ul>
+  </nav>
+
+  <div class="careers-hero">
+    <h2>build the future of naval nuclear engineering</h2>
+  </div>
+
+  <section class="section">
+    <h3>meet our senior engineers</h3>
+    <div class="engineer-grid">
+      <!-- Alan Callison -->
+      <div class="engineer-card">
+        <div class="engineer-icon">AC</div>
+        <div class="engineer-name">Alan Callison</div>
+        <div class="engineer-title">Chief Nuclear Engineer</div>
+        <div class="engineer-bio">32 years in naval nuclear propulsion. Led reactor plant design for CVN‑77 and CVN‑78. Previously senior engineer at Bettis Atomic Power Laboratory. Expert in A1B core thermodynamics and safety analysis.</div>
+      </div>
+      <!-- William Mellon -->
+      <div class="engineer-card">
+        <div class="engineer-icon">WM</div>
+        <div class="engineer-name">William Mellon</div>
+        <div class="engineer-title">Director, Carrier Integration</div>
+        <div class="engineer-bio">25+ years at Newport News Shipbuilding. Oversaw construction of reactor compartments for Gerald R. Ford class. Pioneered modular construction techniques for CVN 79 and CVN 80.</div>
+      </div>
+      <!-- Worthington Prescott -->
+      <div class="engineer-card">
+        <div class="engineer-icon">WP</div>
+        <div class="engineer-name">Worthington Prescott</div>
+        <div class="engineer-title">Senior Advisor, Nuclear Safety</div>
+        <div class="engineer-bio">Former NAVSEA 08 deputy. Developed safety protocols for Columbia‑class SSBN. 30 years experience in reactor plant risk assessment and quality assurance.</div>
+      </div>
+      <!-- Franklin Warren -->
+      <div class="engineer-card">
+        <div class="engineer-icon">FW</div>
+        <div class="engineer-name">Franklin Warren</div>
+        <div class="engineer-title">Lead Electrical Engineer</div>
+        <div class="engineer-bio">Designed zonal electrical distribution for Ford‑class carriers. Specializes in medium‑voltage DC and power system survivability. Holds 12 patents in naval power conversion.</div>
+      </div>
+      <!-- Alexander Rupert -->
+      <div class="engineer-card">
+        <div class="engineer-icon">AR</div>
+        <div class="engineer-name">Alexander Rupert</div>
+        <div class="engineer-title">Chief Systems Engineer</div>
+        <div class="engineer-bio">20 years in systems engineering for naval nuclear plants. Led integration of reactor controls and damage control systems. Certified Model‑Based Systems Engineering (MBSE) expert.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h3>current opportunities</h3>
+    <div class="job-list">
+      <div class="job-card">
+        <h4>Mechanical Engineers</h4>
+        <p>Support reactor plant components, fluid systems, and pressure vessels. BSME + 5 years in naval or nuclear environment.</p>
+      </div>
+      <div class="job-card">
+        <h4>Electrical Engineers</h4>
+        <p>Design and validate power distribution, controls, and instrumentation for aircraft carriers. BSEE + 3 years experience.</p>
+      </div>
+      <div class="job-card">
+        <h4>Systems Engineers</h4>
+        <p>Model‑based integration of combat and propulsion systems. Experience with DOORS, Cameo, or similar required.</p>
+      </div>
+      <div class="job-card">
+        <h4>Nuclear QA/QC Specialists</h4>
+        <p>Oversee NDT, welding, and documentation per ASME Section III and NAVSEA standards. Certifications (CWI, NDT Level II/III) preferred.</p>
+      </div>
+    </div>
+    <div class="clearance-note">
+      <p><strong>Note:</strong> Certain roles may require the ability to obtain government security clearance, where applicable. U.S. citizenship is generally required for access to naval nuclear information.</p>
+    </div>
+  </section>
+
+  <footer>
+    © 2026 A.W. Worthington Naval Nuclear Engineering Group — equal opportunity employer
+  </footer>
+
+  <script>
+    // mobile menu toggle
+    document.querySelector('.nav-toggle')?.addEventListener('click', function() {
+      document.getElementById('navMenu').classList.toggle('active');
+    });
+  </script>
+</body>
+</html>

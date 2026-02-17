@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A.W. Worthington · Engineering Portfolio</title>
+  <!-- Google Fonts for consistency -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ----- design system (matches main site) ----- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    :root {
+      --navy: #0b1a2d;
+      --steel: #1e2f3f;
+      --gold: #c9a24d;
+      --light: #f0f4f8;
+      --dark-text: #b6c1cd;
+      --card-bg: #122734;
+      --border-glow: rgba(201, 162, 77, 0.2);
+      --font-main: 'Inter', sans-serif;
+    }
+    body {
+      font-family: var(--font-main);
+      background-color: var(--navy);
+      color: var(--light);
+      line-height: 1.5;
+    }
+    h1, h2, h3 {
+      font-weight: 350;
+      letter-spacing: -0.02em;
+    }
+    h1 {
+      font-size: clamp(2rem, 5vw, 2.8rem);
+      color: var(--gold);
+    }
+    h2 {
+      font-size: 2rem;
+    }
+    h3 {
+      font-size: 1.8rem;
+      border-bottom: 1px solid rgba(201, 162, 77, 0.3);
+      padding-bottom: 0.5rem;
+      margin-bottom: 2rem;
+      color: var(--gold);
+    }
+    .section {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+    }
+    /* ----- header & navigation ----- */
+    header {
+      background: #0f1b28;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      border-bottom: 2px solid var(--gold);
+    }
+    header p {
+      color: var(--dark-text);
+      font-size: 1.2rem;
+      margin-top: 0.5rem;
+    }
+    nav {
+      background: #0a1522;
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid #2a3a4a;
+    }
+    nav ul {
+      display: flex;
+      justify-content: center;
+      gap: 2.5rem;
+      list-style: none;
+      flex-wrap: wrap;
+    }
+    nav a {
+      color: #e0e7ef;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 500;
+      font-size: 0.95rem;
+      padding-bottom: 0.25rem;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    nav a:hover {
+      color: var(--gold);
+      border-bottom-color: var(--gold);
+    }
+    .nav-toggle {
+      display: none;
+      font-size: 2rem;
+      color: var(--gold);
+      cursor: pointer;
+      text-align: right;
+    }
+    @media (max-width: 700px) {
+      nav ul {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        padding: 1.5rem 0 0.5rem;
+      }
+      nav ul.active {
+        display: flex;
+      }
+      .nav-toggle {
+        display: block;
+      }
+    }
+    /* ----- hero section (portfolio specific) ----- */
+    .portfolio-hero {
+      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,30,40,0.8)), 
+                  url('https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?w=1200') center/cover no-repeat;
+      min-height: 30vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .portfolio-hero h2 {
+      color: white;
+      font-size: clamp(2.2rem, 5vw, 3.2rem);
+      background: rgba(10, 18, 28, 0.7);
+      padding: 2rem 3rem;
+      border-left: 6px solid var(--gold);
+    }
+    /* ----- portfolio card grid ----- */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2.5rem;
+      margin-top: 2rem;
+    }
+    .portfolio-card {
+      background: var(--card-bg);
+      border: 1px solid #2f4555;
+      transition: transform 0.3s ease, border-color 0.2s;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .portfolio-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--gold);
+    }
+    .portfolio-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-bottom: 3px solid var(--gold);
+      display: block;
+    }
+    .card-content {
+      padding: 1.8rem 1.5rem;
+    }
+    .card-content h4 {
+      color: var(--gold);
+      font-size: 1.4rem;
+      font-weight: 400;
+      margin-bottom: 0.75rem;
+    }
+    .card-content p {
+      color: #cedcea;
+      margin-bottom: 1.2rem;
+      font-weight: 300;
+      line-height: 1.6;
+    }
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .tag {
+      background: #1d384b;
+      color: #dbb776;
+      font-size: 0.75rem;
+      padding: 0.2rem 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-left: 2px solid var(--gold);
+    }
+    /* ----- footer ----- */
+    footer {
+      background: #071019;
+      text-align: center;
+      padding: 2.5rem;
+      color: #8c9aa8;
+      border-top: 2px solid var(--gold);
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>A.W. Worthington Naval Nuclear</h1>
+    <p>engineering portfolio · nuclear · carriers · integration</p>
+  </header>
+
+  <nav>
+    <div class="nav-toggle" onclick="document.getElementById('navMenu').classList.toggle('active')">&#9776;</div>
+    <ul id="navMenu">
+      <li><a href="index.html#capabilities">capabilities</a></li>
+      <li><a href="index.html#reviews">testimonials</a></li>
+      <li><a href="programs.html">defense programs</a></li>
+      <li><a href="portfolio.html">portfolio</a></li>
+      <li><a href="careers.html">careers</a></li>
+      <li><a href="index.html#contact">contact</a></li> 
+    </ul>
+  </nav>
+
+  <div class="portfolio-hero">
+    <h2>selected projects & engineering excellence</h2>
+  </div>
+
+  <section class="section">
+    <h3>featured portfolio</h3>
+    <div class="portfolio-grid">
+      
+      <!-- 1. Nuclear Propulsion Coordination -->
+      <div class="portfolio-card">
+        <img src="https://images.unsplash.com/photo-1652145595413-0a79398e5888?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8Y29udHJvbCUyMHJvb218ZW58MHx8MHx8fDA%3D?w=600&auto=format" alt="Nuclear reactor control room" loading="lazy">
+        <div class="card-content">
+          <h4>Nuclear Propulsion Systems Coordination</h4>
+          <p>Lead integration of A1B reactor plant controls for Ford-class carriers. Coordinated with NAVSEA and Bettis for steam plant testing and power-up sequences.</p>
+          <div class="project-tags">
+            <span class="tag">A1B reactor</span>
+            <span class="tag">CVN 78</span>
+            <span class="tag">steam plant</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 2. Carrier Electrical Distribution -->
+      <div class="portfolio-card">
+        <img src="https://thumbs.dreamstime.com/b/image-showcases-meticulously-organized-low-voltage-switchgear-room-modern-industrial-power-plant-room-s-layout-356003531.jpg?w=600&auto=format" alt="Electrical switchgear" loading="lazy">
+        <div class="card-content">
+          <h4>Carrier Electrical Distribution Integration</h4>
+          <p>Designed and validated zonal electrical distribution for CVN 79. Upgraded power conversion modules and fault isolation systems for improved survivability.</p>
+          <div class="project-tags">
+            <span class="tag">zonal distribution</span>
+            <span class="tag">power conversion</span>
+            <span class="tag">CVN 79</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 3. Shipyard Production Engineering -->
+      <div class="portfolio-card">
+        <img src="https://images.unsplash.com/photo-1664029992353-e9089ff951d4?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c2hpcCUyMGJ1aWxkaW5nfGVufDB8fDB8fHww?w=600&auto=format" alt="Shipyard construction" loading="lazy">
+        <div class="card-content">
+          <h4>Shipyard Production Engineering Support</h4>
+          <p>On-site engineering at Newport News Shipbuilding for construction of CVN 80. Resolved fit-up issues in reactor compartment and auxiliary machinery rooms.</p>
+          <div class="project-tags">
+            <span class="tag">Newport News</span>
+            <span class="tag">CVN 80</span>
+            <span class="tag">reactor compartment</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 4. QA/QC Documentation & Compliance -->
+      <div class="portfolio-card">
+        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&auto=format" alt="Quality documentation" loading="lazy">
+        <div class="card-content">
+          <h4>QA/QC Documentation & Compliance</h4>
+          <p>Developed NDT procedures and weld inspection protocols for submarine nuclear components. Achieved 100% first-pass acceptance on critical pressure vessels.</p>
+          <div class="project-tags">
+            <span class="tag">NDT</span>
+            <span class="tag">ASME Section III</span>
+            <span class="tag">NAVSEA 250-1500</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 5. Lifecycle Engineering Analysis -->
+      <div class="portfolio-card">
+        <img src="https://plus.unsplash.com/premium_photo-1682129498557-958a92f1c0b4?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8bnVjbGVhciUyMHJlYWN0b3J8ZW58MHx8MHx8fDA%3D?w=600&auto=format" alt="Engineering analysis" loading="lazy">
+        <div class="card-content">
+          <h4>Lifecycle Engineering Analysis</h4>
+          <p>Performed fatigue and obsolescence studies for Nimitz-class reactor plants. Extended service life of coolant pumps and control rod drive mechanisms.</p>
+          <div class="project-tags">
+            <span class="tag">fatigue analysis</span>
+            <span class="tag">obsolescence</span>
+            <span class="tag">Nimitz-class</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. Additional: Columbia-class SSBN Support (extra to enrich) -->
+      <div class="portfolio-card">
+        <img src="https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?w=600&auto=format" alt="Submarine design" loading="lazy">
+        <div class="card-content">
+          <h4>Columbia-class SSBN Propulsion</h4>
+          <p>Engineering support for common missile compartment and turbo-generator systems. Assisted in risk mitigation for first-of-class testing.</p>
+          <div class="project-tags">
+            <span class="tag">Columbia-class</span>
+            <span class="tag">turbo-generator</span>
+            <span class="tag">SSBN</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- additional stats / impact section (optional) -->
+  <section class="section">
+    <h3>by the numbers</h3>
+    <div style="display: flex; flex-wrap: wrap; gap: 2rem; justify-content: space-around; text-align: center;">
+      <div>
+        <div style="font-size: 3rem; color: var(--gold);">15+</div>
+        <div>naval nuclear projects</div>
+      </div>
+      <div>
+        <div style="font-size: 3rem; color: var(--gold);">8</div>
+        <div>aircraft carriers supported</div>
+      </div>
+      <div>
+        <div style="font-size: 3rem; color: var(--gold);">40+</div>
+        <div>years combined experience</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © 2026 A.W. Worthington Naval Nuclear Engineering Group — portfolio page with project imagery
+  </footer>
+
+  <script>
+    // mobile menu toggle
+    document.querySelector('.nav-toggle')?.addEventListener('click', function() {
+      document.getElementById('navMenu').classList.toggle('active');
+    });
+  </script>
+</body>
+</html>
